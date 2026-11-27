@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useBingoStore } from './store/bingoStore'
 import CurrentNumber from './components/CurrentNumber'
 import NumberBoard from './components/NumberBoard'
@@ -11,12 +11,17 @@ export default function App() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [showBingo, setShowBingo] = useState(false)
   const bingoCount = useBingoStore((s) => s.bingoCount)
+  const lastSeenBingoCount = useRef(bingoCount)
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
   }, [theme])
 
   useEffect(() => {
+    if (bingoCount === lastSeenBingoCount.current) {
+      return
+    }
+    lastSeenBingoCount.current = bingoCount
     if (bingoCount === 0) {
       return
     }
