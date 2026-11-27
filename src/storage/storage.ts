@@ -1,9 +1,13 @@
+import { defaultRules, type RuleStep } from '../utils/rules'
+
 export interface ArchivedRound {
   id: string
   startedAt: number
   endedAt: number
   drawn: number[]
   bingoCount: number
+  rules?: RuleStep[]
+  completedRuleIds?: string[]
 }
 
 export interface PersistedState {
@@ -11,6 +15,8 @@ export interface PersistedState {
   bingoCount: number
   roundStartedAt: number
   rounds: ArchivedRound[]
+  rules: RuleStep[]
+  completedRuleIds: string[]
 }
 
 const STORAGE_KEY = 'bingo-beamer:v1'
@@ -32,6 +38,8 @@ export function loadPersisted(): PersistedState | null {
       rounds: Array.isArray(parsed.rounds)
         ? parsed.rounds.filter((r): r is ArchivedRound => typeof r === 'object' && r !== null && Array.isArray(r.drawn))
         : [],
+      rules: Array.isArray(parsed.rules) && parsed.rules.length > 0 ? parsed.rules : defaultRules(),
+      completedRuleIds: Array.isArray(parsed.completedRuleIds) ? parsed.completedRuleIds : [],
     }
   } catch {
     return null

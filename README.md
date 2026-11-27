@@ -14,8 +14,9 @@ Die App ist bewusst **kein** komplettes Mehrspieler-Bingo mit Spielerkarten – 
 - Persistenz in `localStorage` (gezogene Zahlen überleben einen Reload)
 - Laufender Bingo-Zähler in der Kopfzeile (mehrere Bingos pro Runde zählbar)
 - Runden-Verlauf: abgeschlossene Runden werden archiviert (Zeitraum, Dauer, gezogene Zahlen, Bingos) und sind pro Runde ein-/ausklappbar
-- Export des Verlaufs (inkl. aktueller Runde) als JSON und CSV
-- Runde zurücksetzen (neue Runde starten, archiviert die bisherige Runde)
+- Export des Verlaufs (inkl. aktueller Runde und Regel-Kette) als JSON und CSV
+- **Stackbare Bingo-Regeln** pro Runde: Regel-Kette mit Icons (z. B. erst Zeile 1, dann Zeilen 1 + 5, zuletzt volles Blatt), in Reihenfolge abarbeitbar, pro erfüllter Regel ein Bingo; Regeleditor mit Hinzufügen/Umordnen/Entfernen; Fortschritt bleibt pro Regel erhalten und wird mitarchiviert
+- Runde zurücksetzen (neue Runde starten, archiviert die bisherige Runde inkl. Regeln)
 - Themes (verschiedene Farbschemata) und Animationen beim Ziehen
 - Bingo-Button mit Animation
 - Reiner statischer Build, gehostet auf GitHub Pages
@@ -29,10 +30,10 @@ Die App ist bewusst **kein** komplettes Mehrspieler-Bingo mit Spielerkarten – 
 - **Serverseitige Persistenz**: Backend auf dem vorhandenen VPS (Podman + Caddy als zentraler Ingress), Synchronisation der Instanzen z. B. über WebSocket
 - **Runden-Historie**: Übersicht und Neustart vergangener Runden, optionaler Export (JSON/CSV)
 
-### Phase 3 – Bingo-Regeln & Polish
+### Phase 3 – Polish
 
-- **Stackbare Bingo-Regeln pro Runde**, z. B. in dieser Reihenfolge: erst Zeile 1, dann Zeilen 1 und 5, zuletzt das gesamte Blatt. Jede Regel wird einmal pro Runde „freigeschaltet", mehrere Bingos pro Runde möglich. Visualisierung über Icons.
-- Erweiterte Themes, Animationen und optionale Soundeffekte
+- Erweiterte Themes (weitere Farbschemata), Animationen und optionale Soundeffekte
+- Design-Feinschliff der Beamer-Anzeige
 
 ## Tech-Stack
 
