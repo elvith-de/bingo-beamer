@@ -12,9 +12,12 @@ Die App ist bewusst **kein** komplettes Mehrspieler-Bingo mit Spielerkarten – 
 - Ziehen per Klick oder Tastatur (Leertaste)
 - Vollbildmodus
 - Persistenz in `localStorage` (gezogene Zahlen überleben einen Reload)
-- Runde zurücksetzen (neue Runde starten)
+- Laufender Bingo-Zähler in der Kopfzeile (mehrere Bingos pro Runde zählbar)
+- Runden-Verlauf: abgeschlossene Runden werden archiviert (Zeitraum, Dauer, gezogene Zahlen, Bingos) und sind pro Runde ein-/ausklappbar
+- Export des Verlaufs (inkl. aktueller Runde) als JSON und CSV
+- Runde zurücksetzen (neue Runde starten, archiviert die bisherige Runde)
 - Themes (verschiedene Farbschemata) und Animationen beim Ziehen
-- Bingo-Button mit Animation; mehrere Bingos pro Runde sind zählbar
+- Bingo-Button mit Animation
 - Reiner statischer Build, gehostet auf GitHub Pages
 
 ## Roadmap / zukünftige Features

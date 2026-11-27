@@ -4,12 +4,15 @@ import CurrentNumber from './components/CurrentNumber'
 import NumberBoard from './components/NumberBoard'
 import Controls from './components/Controls'
 import BingoOverlay from './components/BingoOverlay'
+import BingoCounter from './components/BingoCounter'
+import RoundHistory from './components/RoundHistory'
 
 type Theme = 'dark' | 'light'
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>('dark')
   const [showBingo, setShowBingo] = useState(false)
+  const [showHistory, setShowHistory] = useState(false)
   const bingoCount = useBingoStore((s) => s.bingoCount)
   const lastSeenBingoCount = useRef(bingoCount)
 
@@ -35,6 +38,10 @@ export default function App() {
       <header className="app-header">
         <h1>Bingo Beamer</h1>
         <div className="header-actions">
+          <BingoCounter />
+          <button className="btn" onClick={() => setShowHistory(true)}>
+            Verlauf
+          </button>
           <button className="btn" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             {theme === 'dark' ? 'Helles Theme' : 'Dunkles Theme'}
           </button>
@@ -46,6 +53,7 @@ export default function App() {
         <NumberBoard />
       </main>
       {showBingo && <BingoOverlay count={bingoCount} onClose={() => setShowBingo(false)} />}
+      {showHistory && <RoundHistory onClose={() => setShowHistory(false)} />}
     </div>
   )
 }
