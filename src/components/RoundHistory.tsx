@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useBingoStore } from '../store/bingoStore'
 import { formatDrawnNumber } from '../utils/bingo'
 import { buildExport, downloadFile, exportTimestamp, toCsv, toJson } from '../utils/export'
+import { patternIcon, patternLabel } from '../utils/rules'
 
 function formatDateTime(ts: number): string {
   return new Date(ts).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' })
@@ -27,17 +28,18 @@ export default function RoundHistory({ onClose }: RoundHistoryProps) {
   const bingoCount = useBingoStore((s) => s.bingoCount)
   const roundStartedAt = useBingoStore((s) => s.roundStartedAt)
   const rounds = useBingoStore((s) => s.rounds)
+  const rules = useBingoStore((s) => s.rules)
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
   const numberedRounds = rounds.map((r, i) => ({ ...r, number: i + 1 })).reverse()
 
   const handleExportJson = () => {
-    const data = buildExport(drawn, bingoCount, roundStartedAt, rounds)
+    const data = buildExport(drawn, bingoCount, roundStartedAt, rounds, rules)
     downloadFile(`bingo-export-${exportTimestamp()}.json`, toJson(data), 'application/json')
   }
 
   const handleExportCsv = () => {
-    const data = buildExport(drawn, bingoCount, roundStartedAt, rounds)
+    const data = buildExport(drawn, bingoCount, roundStartedAt, rounds, rules)
     downloadFile(`bingo-export-${exportTimestamp()}.csv`, toCsv(data), 'text/csv')
   }
 
@@ -81,6 +83,18 @@ export default function RoundHistory({ onClose }: RoundHistoryProps) {
                   <span>{r.drawn.length} Zahlen</span>
                   <span>{r.bingoCount} Bingo(s)</span>
                 </button>
+                {r.rules && r.rules.length > 0 && (
+                  <div className="history-rules">
+                    {r.rules.map((step) => (
+                      <span
+                        key={step.id}
+                        className={r.completedRuleIds?.includes(step.id) ? 'chip' : 'chip chip-pending'}
+                      >
+                        {patternIcon(step.pattern)} {patternLabel(step.pattern)}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 {expandedId === r.id && (
                   <div className="history-chips">
                     {r.drawn.map((n) => (
