@@ -27,7 +27,12 @@ export default function App() {
     if (bingoCount === lastSeenBingoCount.current) {
       return
     }
+    const decreased = bingoCount < lastSeenBingoCount.current
     lastSeenBingoCount.current = bingoCount
+    if (decreased) {
+      setShowBingo(false)
+      return
+    }
     if (bingoCount === 0) {
       return
     }

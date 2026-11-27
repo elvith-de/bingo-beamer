@@ -12,6 +12,7 @@ interface BingoStore {
   completedRuleIds: string[]
   draw: () => void
   bingo: () => void
+  undoBingo: () => void
   newRound: () => void
   setRules: (rules: RuleStep[]) => void
 }
@@ -40,6 +41,24 @@ export const useBingoStore = create<BingoStore>((set, get) => ({
     const nextStep = rules.find((r) => !completedRuleIds.includes(r.id))
     const newCompletedRuleIds = nextStep ? [...completedRuleIds, nextStep.id] : completedRuleIds
     const newBingoCount = bingoCount + 1
+    savePersisted({
+      drawn,
+      bingoCount: newBingoCount,
+      roundStartedAt,
+      rounds,
+      rules,
+      completedRuleIds: newCompletedRuleIds,
+    })
+    set({ bingoCount: newBingoCount, completedRuleIds: newCompletedRuleIds })
+  },
+  undoBingo: () => {
+    const { drawn, bingoCount, roundStartedAt, rounds, rules, completedRuleIds } = get()
+    if (bingoCount === 0) {
+      return
+    }
+    const newBingoCount = bingoCount - 1
+    const newCompletedRuleIds =
+      completedRuleIds.length > newBingoCount ? completedRuleIds.slice(0, -1) : completedRuleIds
     savePersisted({
       drawn,
       bingoCount: newBingoCount,

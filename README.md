@@ -16,6 +16,7 @@ Die App ist bewusst **kein** komplettes Mehrspieler-Bingo mit Spielerkarten – 
 - Runden-Verlauf: abgeschlossene Runden werden archiviert (Zeitraum, Dauer, gezogene Zahlen, Bingos) und sind pro Runde ein-/ausklappbar
 - Export des Verlaufs (inkl. aktueller Runde und Regel-Kette) als JSON und CSV
 - **Stackbare Bingo-Regeln** pro Runde: Regel-Kette mit Icons (z. B. erst Zeile 1, dann Zeilen 1 + 5, zuletzt volles Blatt), in Reihenfolge abarbeitbar, pro erfüllter Regel ein Bingo; Regeleditor mit Hinzufügen/Umordnen/Entfernen; Fortschritt bleibt pro Regel erhalten und wird mitarchiviert
+- **Bingo rückgängig machen** (Button oder Taste `U`): nimmt das letzte Bingo zurück, inkl. des Regel-Fortschritts – bei versehentlichem Klick
 - Runde zurücksetzen (neue Runde starten, archiviert die bisherige Runde inkl. Regeln)
 - Themes (verschiedene Farbschemata) und Animationen beim Ziehen
 - Bingo-Button mit Animation
